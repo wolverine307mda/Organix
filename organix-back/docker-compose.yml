@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: organix_postgres
+    environment:
+      POSTGRES_DB: organix_db
+      POSTGRES_USER: organix_user
+      POSTGRES_PASSWORD: organix_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - organix_postgres_data:/var/lib/postgresql/data
+    networks:
+      - organix_network
+
+  redis:
+    image: redis:latest
+    container_name: organix_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - organix_redis_data:/data
+    networks:
+      - organix_network
+
+volumes:
+  organix_postgres_data:
+  organix_redis_data:
+
+networks:
+  organix_network:
+    driver: bridge
